@@ -32,6 +32,10 @@ public class RealCommand {
         return arguments;
     }
 
+    public Method getMethod() {
+        return method;
+    }
+
     public void invoke(List<Object> arguments) {
         try {
             method.invoke(cog, arguments.toArray());

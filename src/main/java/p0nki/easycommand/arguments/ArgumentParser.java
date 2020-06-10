@@ -6,6 +6,6 @@ import p0nki.easycommand.Optional;
 @FunctionalInterface
 public interface ArgumentParser {
 
-    Optional<Object> parse(CommandReader reader);
+    Optional<?> parse(CommandReader reader);
 
 }
