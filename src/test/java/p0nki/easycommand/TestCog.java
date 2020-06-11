@@ -36,4 +36,9 @@ public class TestCog {
         System.out.println("INSTR " + in);
     }
 
+    @Command(names = "returnSource")
+    public void returnSource(@Argument(name = "source", parse = ReturnSourceParser.class) Object source) {
+        System.out.println("returnSource " + source);
+    }
+
 }

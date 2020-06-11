@@ -12,11 +12,14 @@ public class CommandDispatcherTests {
         CommandDispatcher dispatcher = new CommandDispatcher();
         dispatcher.addPrimitives();
         dispatcher.createCog(new TestCog(), TestCog.class);
-        dispatcher.run(Optional.empty(), "testArray 1 2 3 4 5");
-        dispatcher.run(Optional.empty(), "testCharSequence str");
-        dispatcher.run(Optional.empty(), "testGreedyString str a");
-        dispatcher.run(Optional.empty(), "overlap str");
-        dispatcher.run(Optional.empty(), "overlap 5");
+        dispatcher.run(null, "testArray 1 2 3 4 5");
+        dispatcher.run(null, "testCharSequence str");
+        dispatcher.run(null, "testGreedyString str a");
+        dispatcher.run(null, "overlap str");
+        dispatcher.run(null, "overlap 5");
+        dispatcher.run("233", "returnSource");
+        dispatcher.run(null, "returnSource");
+        dispatcher.run(Optional.empty(), "returnSource");
     }
 
 }

@@ -49,9 +49,13 @@ public class CommandDispatcher {
                     if (names.length == 0) names = new String[]{method.getName()};
                     List<RealArgument> args = new ArrayList<>();
                     List<Parameter> parameters = new ArrayList<>(Arrays.asList(method.getParameters()));
+                    boolean takeSource = false;
                     if (parameters.size() > 0) {
                         if (parameters.get(0).isAnnotationPresent(Source.class)) {
+                            if (parameters.get(0).isAnnotationPresent(Argument.class))
+                                throw new IllegalArgumentException("Source and Argument cannot be present on the same parameter");
                             parameters.remove(0);
+                            takeSource = true;
                         }
                         args = parameters.stream().map(parameter -> {
                             if (parameter.isAnnotationPresent(Argument.class)) {
@@ -61,7 +65,7 @@ public class CommandDispatcher {
                             }
                         }).collect(Collectors.toList());
                     }
-                    commands.add(new RealCommand(cog, Arrays.stream(command.literals()).map(Literal::value).collect(Collectors.toList()), Arrays.asList(names), args, method));
+                    commands.add(new RealCommand(cog, Arrays.stream(command.literals()).map(Literal::value).collect(Collectors.toList()), Arrays.asList(names), args, takeSource, method));
                 }
             }
             RealCommandCog realCog = new RealCommandCog(commandCog.value(), commands);
@@ -72,7 +76,7 @@ public class CommandDispatcher {
         }
     }
 
-    private Optional<String> attemptRun(Optional<Object> source, String str, RealCommand command) {
+    private Optional<String> attemptRun(Object source, String str, RealCommand command) {
         CommandReader reader = new CommandReader(str);
         for (String[] literal : command.getLiterals()) {
             String next = reader.readWord();
@@ -82,9 +86,9 @@ public class CommandDispatcher {
         }
         if (command.getNames().contains(reader.readWord())) {
             List<Object> arguments = new ArrayList<>();
-            source.ifPresent(arguments::add);
+            if (command.takeSource()) arguments.add(source);
             for (RealArgument arg : command.getArguments()) {
-                Optional<?> obj = arg.parse(reader);
+                Optional<?> obj = arg.parse(source, reader);
                 if (obj.isPresent()) {
                     arguments.add(obj.get());
                 } else {
@@ -98,7 +102,7 @@ public class CommandDispatcher {
         return Optional.of("No command name found");
     }
 
-    public void run(Optional<Object> source, String str) {
+    public void run(Object source, String str) {
         for (RealCommandCog cog : cogs) {
             for (RealCommand command : cog.getCommands()) {
                 Optional<String> res = attemptRun(source, str, command);
@@ -109,6 +113,7 @@ public class CommandDispatcher {
 //                    System.out.println(res.get());
 //                }
             }
+            // TODO command requirements
         }
         throw new RuntimeException("No command found: " + str);
     }

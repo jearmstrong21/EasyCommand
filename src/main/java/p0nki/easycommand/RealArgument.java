@@ -76,11 +76,11 @@ public class RealArgument {
         return name;
     }
 
-    public Optional<?> parse(CommandReader reader) {
+    public Optional<?> parse(Object source, CommandReader reader) {
         if (count.isPresent()) {
             List<Object> values = new ArrayList<>();
             Optional<?> optional;
-            while ((optional = parser.parse(reader)).isPresent()) {
+            while ((optional = parser.parse(source, reader)).isPresent()) {
                 values.add(optional.get());
             }
             if (count.get().getKey() > values.size() || values.size() > count.get().getValue()) return Optional.empty();
@@ -91,7 +91,7 @@ public class RealArgument {
             }
             return Optional.of(array);
         }
-        return parser.parse(reader);
+        return parser.parse(source, reader);
     }
 
 }
