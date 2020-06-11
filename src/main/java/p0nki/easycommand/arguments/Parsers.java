@@ -1,6 +1,6 @@
 package p0nki.easycommand.arguments;
 
-import p0nki.easycommand.Optional;
+import p0nki.easycommand.utils.Optional;
 
 public class Parsers {
 

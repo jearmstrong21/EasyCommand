@@ -1,6 +1,7 @@
 package p0nki.easycommand;
 
 import org.junit.Test;
+import p0nki.easycommand.utils.Optional;
 
 @SuppressWarnings("unused")
 public class CommandDispatcherTests {

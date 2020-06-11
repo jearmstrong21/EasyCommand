@@ -1,7 +1,7 @@
 package p0nki.easycommand.arguments;
 
-import p0nki.easycommand.Optional;
 import p0nki.easycommand.RealArgument;
+import p0nki.easycommand.utils.Optional;
 
 import java.util.function.Function;
 

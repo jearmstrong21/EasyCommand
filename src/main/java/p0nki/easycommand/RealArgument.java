@@ -1,9 +1,10 @@
 package p0nki.easycommand;
 
-import javafx.util.Pair;
 import p0nki.easycommand.annotations.Argument;
 import p0nki.easycommand.arguments.ArgumentParser;
 import p0nki.easycommand.arguments.ParserFactory;
+import p0nki.easycommand.utils.Optional;
+import p0nki.easycommand.utils.Pair;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -83,7 +84,7 @@ public class RealArgument {
             while ((optional = parser.parse(source, reader)).isPresent()) {
                 values.add(optional.get());
             }
-            if (count.get().getKey() > values.size() || values.size() > count.get().getValue()) return Optional.empty();
+            if (count.get().getA() > values.size() || values.size() > count.get().getB()) return Optional.empty();
             if (values.size() == 0) return Optional.empty();
             Object array = Array.newInstance(clazz, values.size());
             for (int i = 0; i < values.size(); i++) {

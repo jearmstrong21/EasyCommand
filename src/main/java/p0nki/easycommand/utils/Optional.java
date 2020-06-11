@@ -1,4 +1,4 @@
-package p0nki.easycommand;
+package p0nki.easycommand.utils;
 
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -27,6 +27,11 @@ public class Optional<T> {
         } catch (Exception e) {
             return empty();
         }
+    }
+
+    public static <T> Optional<T> emptyIfNull(T value) {
+        if (value == null) return empty();
+        return of(value);
     }
 
     public static <T> Optional<T> empty() {

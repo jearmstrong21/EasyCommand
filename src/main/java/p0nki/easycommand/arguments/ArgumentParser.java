@@ -1,7 +1,7 @@
 package p0nki.easycommand.arguments;
 
 import p0nki.easycommand.CommandReader;
-import p0nki.easycommand.Optional;
+import p0nki.easycommand.utils.Optional;
 
 @FunctionalInterface
 public interface ArgumentParser {
