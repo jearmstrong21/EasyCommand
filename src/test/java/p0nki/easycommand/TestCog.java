@@ -3,6 +3,7 @@ package p0nki.easycommand;
 import p0nki.easycommand.annotations.Argument;
 import p0nki.easycommand.annotations.Command;
 import p0nki.easycommand.annotations.CommandCog;
+import p0nki.easycommand.annotations.Source;
 import p0nki.easycommand.arguments.Parsers;
 
 import java.util.Arrays;
@@ -39,6 +40,11 @@ public class TestCog {
     @Command(names = "returnSource")
     public void returnSource(@Argument(name = "source", parse = ReturnSourceParser.class) Object source) {
         System.out.println("returnSource " + source);
+    }
+
+    @Command(names = "echo")
+    public void echo(@Source Object source, @Argument(name = "value", modifiers = Parsers.GREEDY_STRING) String value) {
+        System.out.println(value);
     }
 
 }

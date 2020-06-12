@@ -22,6 +22,10 @@ public class CommandDispatcher {
         cogs = new ArrayList<>();
     }
 
+    public List<RealCommandCog> getCogs() {
+        return cogs;
+    }
+
     public void addParser(ParserFactory parser) {
         parsers.add(parser);
     }

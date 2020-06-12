@@ -21,6 +21,7 @@ public class CommandDispatcherTests {
         dispatcher.run("233", "returnSource");
         dispatcher.run(null, "returnSource");
         dispatcher.run(Optional.empty(), "returnSource");
+        dispatcher.run(null, "echo @everyone");
     }
 
 }
