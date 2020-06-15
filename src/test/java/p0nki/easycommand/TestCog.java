@@ -8,7 +8,7 @@ import p0nki.easycommand.arguments.Parsers;
 
 import java.util.Arrays;
 
-@CommandCog("test")
+@CommandCog(name = "test")
 @SuppressWarnings("unused")
 public class TestCog {
 
@@ -42,9 +42,29 @@ public class TestCog {
         System.out.println("returnSource " + source);
     }
 
+    @Command(names = "testGreedy")
+    public void testGreedy() {
+        System.out.println("testGreedy no args");
+    }
+
+    @Command(names = "testGreedy")
+    public void testGreedy(@Argument(name = "str", modifiers = Parsers.GREEDY_STRING) String str) {
+        System.out.println("testGreedy arg=" + str);
+    }
+
     @Command(names = "echo")
     public void echo(@Source Object source, @Argument(name = "value", modifiers = Parsers.GREEDY_STRING) String value) {
         System.out.println(value);
+    }
+
+    @Command(names = "testSource")
+    public void testSource(@Source int source) {
+        System.out.println("testSource " + source);
+    }
+
+    @Command(names = "testRequirement", requirements = IntValueRequirement.class)
+    public void testRequirement(@Source int source) {
+        System.out.println("testRequirement " + source);
     }
 
 }

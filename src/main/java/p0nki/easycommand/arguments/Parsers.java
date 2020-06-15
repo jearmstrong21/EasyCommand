@@ -5,7 +5,7 @@ import p0nki.easycommand.utils.Optional;
 public class Parsers {
 
     // --- MODIFIERS ---
-    public static final String GREEDY_STRING = "MODIFIER_GREEDY_STRING";
+    public static final String GREEDY_STRING = "greedy";
 
     // --- PARSERS ---
     public static final ArgumentParser GREEDY_STRING_PARSER = (source, reader) -> {
