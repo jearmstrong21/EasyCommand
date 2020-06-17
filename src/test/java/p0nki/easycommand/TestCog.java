@@ -13,8 +13,8 @@ import java.util.Arrays;
 public class TestCog {
 
     @Command
-    public void testArray(@Argument(name = "array") Integer[] array) {
-        System.out.println(array.length + ": " + Arrays.toString(array));
+    public void testArray(@Argument(name = "array") Integer[] array, @Argument(name = "text", modifiers = Parsers.GREEDY_STRING) String text) {
+        System.out.println(array.length + ": " + Arrays.toString(array) + ": " + text);
     }
 
     @Command

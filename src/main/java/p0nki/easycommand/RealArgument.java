@@ -80,9 +80,15 @@ public class RealArgument {
     public Optional<?> parse(Object source, CommandReader reader) {
         if (count.isPresent()) {
             List<Object> values = new ArrayList<>();
-            Optional<?> optional;
-            while ((optional = parser.parse(source, reader)).isPresent()) {
-                values.add(optional.get());
+            while (true) {
+                int startIndex = reader.getIndex();
+                Optional<?> optional = parser.parse(source, reader);
+                if (optional.isPresent()) {
+                    values.add(optional.get());
+                } else {
+                    reader.setIndex(startIndex);
+                    break;
+                }
             }
             if (count.get().getA() > values.size() || values.size() > count.get().getB()) return Optional.empty();
             if (values.size() == 0) return Optional.empty();
